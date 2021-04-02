@@ -1,0 +1,23 @@
+{
+  "todos" : [
+    {
+      "id": 1,
+    "title": "todo item 1",
+    "status": true,
+    "authorId": 1
+    },
+    {
+      "id": 2,
+    "title": "todo item 2",
+    "status": true,
+    "authorId": 1
+    }
+  ],
+
+  "authors" : [
+    {
+    "id": 1,
+    "name": "D4phy"
+    }
+  ]
+}
