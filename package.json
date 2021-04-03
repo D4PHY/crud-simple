@@ -1,6 +1,9 @@
 {
   "name": "crud-simple",
   "version": "1.0.0",
+  "scripts": {
+   "start": "npx json-server -w db.json"
+  },
   "dependencies": {
     "json-server": "^0.16.3"
   }
