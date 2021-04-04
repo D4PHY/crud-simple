@@ -13,38 +13,41 @@ function handleResponse(response) {
   throw new Error("Bad response from server");
 }
 
-function renderTodo(data) {
-  const todo = document.createElement("p");
-  const input = document.createElement("input");
-  input.type = "checkbox";
-  input.id = data.id;
-  input.value = data.todo;
-  input.addEventListener("change", handleCheckTodo);
-  input.checked = data.status;
-  const label = document.createElement("label");
-  label.setAttribute("for", data.todo);
-  label.innerText = data.todo;
-  todo.appendChild(input);
-  todo.appendChild(label);
-  todoInput.value = "";
+function renderTodo(todos) {
+  const fragment = document.createDocumentFragment();
 
-  todoList.appendChild(todo);
+  todos.forEach((item) => {
+    const todo = document.createElement("p");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.id = item.id;
+    input.value = item.todo;
+    input.addEventListener("change", handleCheckTodo);
+    input.checked = item.isChecked;
+    const label = document.createElement("label");
+    label.setAttribute("for", item.todo);
+    label.innerText = item.todo;
+    todo.appendChild(input);
+    todo.appendChild(label);
+
+    todoInput.value = "";
+
+    fragment.appendChild(todo);
+  });
+
+  todoList.appendChild(fragment);
 }
 
-async function init(newTodo) {
-  todoList.innerHTML = "";
-
-  const todos = await fetch(apiUrl)
+function init() {
+  fetch(apiUrl)
     .then(handleResponse)
     .then((data) => {
-      data.forEach((item) => {
-        const todoItem = renderTodo(item);
-      });
+      console.log(data);
+      renderTodo(data);
     });
 }
 
-async function handleAddTodo(e) {
-  e.preventDefault();
+async function handleAddTodo() {
   if (todoInput.value === "") {
     return;
   }
@@ -55,34 +58,53 @@ async function handleAddTodo(e) {
     authorId: 1,
   };
 
-  renderTodo(newTodo);
+  renderTodo([newTodo]);
 
-  const todoToServer = await fetch(apiUrl, {
+  await fetch(apiUrl, {
     method: "POST",
     body: JSON.stringify(newTodo),
     headers: {
       "Content-type": "application/json",
     },
-  });
+  })
+    .then(handleResponse)
+    .then(console.log);
 }
 
-function handleCheckTodo(e) {
-  todos.forEach((item) => {
-    if (item.todo === e.target.value) {
-      item.isChecked = e.target.checked;
-    }
-  });
+async function handleCheckTodo(e) {
+  const idToDelete = Number(e.target.id);
+
+  await fetch(`${apiUrl}/${idToDelete}`, {
+    method: "PATCH",
+    body: JSON.stringify({ isChecked: e.target.checked }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then(handleResponse)
+    .then(console.log);
 }
 
 function handleDeleteTodos() {
-  todos = todos.filter((item) => item.isChecked === false);
+  const checkedTodos = document.querySelectorAll(
+    "input[type='checkbox']:checked"
+  );
 
-  location = "/";
+  checkedTodos.forEach((item) => {
+    console.log("id:", item.id);
+    fetch(`${apiUrl}/${item.id}`, {
+      method: "DELETE",
+    })
+      .then(handleResponse)
+      .then((result) => {
+        const todoParent = item.parentNode;
+        todoParent.parentNode.removeChild(todoParent);
+      });
+  });
+  // location = "/";
 }
 
-addTodoBtn.addEventListener("click", function (e) {
-  handleAddTodo(e);
-});
+addTodoBtn.addEventListener("click", handleAddTodo);
 
 document.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {

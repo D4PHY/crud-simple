@@ -1,94 +1,16 @@
 {
   "todos": [
     {
-      "id": 1,
-      "todo": "sleep",
-      "isChecked": false,
-      "authorId": 1
-    },
-    {
-      "id": 2,
-      "todo": "study",
-      "isChecked": false,
-      "authorId": 1
-    },
-    {
       "todo": "eat",
       "isChecked": false,
       "authorId": 1,
       "id": 3
     },
     {
-      "todo": "dance",
+      "todo": "SVDC ",
       "isChecked": false,
       "authorId": 1,
       "id": 4
-    },
-    {
-      "todo": "make love",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 5
-    },
-    {
-      "todo": "humm",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 6
-    },
-    {
-      "todo": "walk",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 7
-    },
-    {
-      "todo": "play",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 8
-    },
-    {
-      "todo": "draw",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 9
-    },
-    {
-      "todo": "something else",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 10
-    },
-    {
-      "todo": "sing",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 11
-    },
-    {
-      "todo": "drive",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 12
-    },
-    {
-      "todo": "enjoy sun",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 13
-    },
-    {
-      "todo": "see parents",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 14
-    },
-    {
-      "todo": "take a break",
-      "isChecked": false,
-      "authorId": 1,
-      "id": 15
     }
   ],
   "authors": [
