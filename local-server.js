@@ -47,7 +47,7 @@ function init() {
     });
 }
 
-async function handleAddTodo() {
+function handleAddTodo() {
   if (todoInput.value === "") {
     return;
   }
@@ -58,9 +58,7 @@ async function handleAddTodo() {
     authorId: 1,
   };
 
-  renderTodo([newTodo]);
-
-  await fetch(apiUrl, {
+  fetch(apiUrl, {
     method: "POST",
     body: JSON.stringify(newTodo),
     headers: {
@@ -68,21 +66,21 @@ async function handleAddTodo() {
     },
   })
     .then(handleResponse)
-    .then(console.log);
+    .then((newTodo) => {
+      renderTodo([newTodo]);
+    });
 }
 
-async function handleCheckTodo(e) {
+function handleCheckTodo(e) {
   const idToDelete = Number(e.target.id);
 
-  await fetch(`${apiUrl}/${idToDelete}`, {
+  fetch(`${apiUrl}/${idToDelete}`, {
     method: "PATCH",
     body: JSON.stringify({ isChecked: e.target.checked }),
     headers: {
       "Content-type": "application/json",
     },
-  })
-    .then(handleResponse)
-    .then(console.log);
+  });
 }
 
 function handleDeleteTodos() {
@@ -94,14 +92,11 @@ function handleDeleteTodos() {
     console.log("id:", item.id);
     fetch(`${apiUrl}/${item.id}`, {
       method: "DELETE",
-    })
-      .then(handleResponse)
-      .then((result) => {
-        const todoParent = item.parentNode;
-        todoParent.parentNode.removeChild(todoParent);
-      });
+    });
+
+    const todoParent = item.parentNode;
+    todoParent.parentNode.removeChild(todoParent);
   });
-  // location = "/";
 }
 
 addTodoBtn.addEventListener("click", handleAddTodo);
@@ -116,5 +111,3 @@ document.addEventListener("keypress", function (e) {
 deleteTodoBtn.addEventListener("click", handleDeleteTodos);
 
 document.addEventListener("DOMContentLoaded", init);
-
-// localStorage.clear();

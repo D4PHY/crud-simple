@@ -2,15 +2,15 @@
   "todos": [
     {
       "todo": "eat",
-      "isChecked": false,
+      "isChecked": true,
       "authorId": 1,
-      "id": 3
+      "id": 1
     },
     {
-      "todo": "SVDC ",
-      "isChecked": false,
+      "todo": "love",
+      "isChecked": true,
       "authorId": 1,
-      "id": 4
+      "id": 3
     }
   ],
   "authors": [
