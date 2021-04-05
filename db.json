@@ -2,7 +2,7 @@
   "todos": [
     {
       "todo": "eat",
-      "isChecked": true,
+      "isChecked": false,
       "authorId": 1,
       "id": 1
     },
@@ -15,8 +15,14 @@
   ],
   "authors": [
     {
-      "id": 1,
-      "name": "D4phy"
+     "name": "D4phy",
+     "isChecked" : false,
+      "id": 1
+    },
+    {
+      "name": "Postal",
+      "isChecked" : true,
+      "id": 2
     }
   ]
 }

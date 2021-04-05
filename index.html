@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="local-server.js" defer></script>
+    <script src="local-server-authors.js" defer></script>
   </head>
   <body>
     <div data-todo-form>
@@ -14,5 +15,11 @@
       <button type="button" data-todo-delete>Delete all checked items</button>
     </div>
     <article data-todo-list></article>
+
+    <form data-authors>
+      <input type="text" name="author-input" />
+      <button type="submit">Add new Author</button>
+    </form>
+    <article data-authors-list></article>
   </body>
 </html>
