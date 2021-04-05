@@ -2,11 +2,14 @@
   const authorForm = document.querySelector("[data-authors]");
   const authorInput = authorForm.querySelector("input[name='author-input']");
   const addAuthorBtn = authorForm.querySelector("button[type='submit']");
+  const deleteAuthorsBtn = authorForm.querySelector("button[type='button']");
   const authorList = document.querySelector("[data-authors-list]");
 
-  const urlApi = "http://localhost:3000/authors";
+  const urlAuthorsApi = "http://localhost:3000/authors";
 
-  function getUrlParam() {}
+  function getUrlParam(queryParam) {
+    return Number(queryParam.split("-")[1]);
+  }
 
   function handleResponse(response) {
     if (response.ok) {
@@ -17,7 +20,7 @@
 
   // Populate author list with existing authors:
   function init() {
-    fetch(urlApi)
+    fetch(urlAuthorsApi)
       .then(handleResponse)
       .then((authors) => {
         const fragment = document.createDocumentFragment();
@@ -31,19 +34,48 @@
   }
 
   // add a new author to the data base and also to the page
-  function handleAddAuthor() {}
+  function handleAddAuthor(e) {
+    e.preventDefault();
+    if (!authorInput.value) {
+      return;
+    }
 
-  // edit the name of an author on db. and refelect on the page
-  function handleEditAuthor() {}
+    const data = authorInput.value;
+
+    const newAuthor = { name: data, isChecked: false };
+
+    fetch(urlAuthorsApi, {
+      method: "POST",
+      body: JSON.stringify(newAuthor),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then(handleResponse)
+      .then((result) => {
+        const newAuthorElement = renderAuthor(result);
+        authorList.appendChild(newAuthorElement);
+      });
+
+    authorInput.value = "";
+  }
 
   // delete an author from the db and reflect on the page
-  function deleteAuthor() {}
+  function handleDeleteAuthors() {
+    const authorsChecked = authorList.querySelectorAll(
+      "input[type ='checkbox']:checked"
+    );
 
-  {
-    /* <p class="author-container">
-    <input type="checkbox" id="author-1" value="D4phy" />
-    <label for="author-1">D4phy</label>
-</p> */
+    authorsChecked.forEach((author) => {
+      const authorId = getUrlParam(author.id);
+      console.log(authorId);
+      fetch(`${urlAuthorsApi}/${authorId}`, {
+        method: "DELETE",
+      });
+
+      const authorCheckedParent = author.parentNode;
+      authorCheckedParent.parentNode.removeChild(authorCheckedParent);
+    });
   }
 
   // create html for author component
@@ -64,6 +96,10 @@
 
     return authorContainer;
   }
+
+  addAuthorBtn.addEventListener("click", handleAddAuthor);
+
+  deleteAuthorsBtn.addEventListener("click", handleDeleteAuthors);
 
   init();
 })();

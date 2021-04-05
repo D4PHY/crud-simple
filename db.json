@@ -8,21 +8,32 @@
     },
     {
       "todo": "love",
-      "isChecked": true,
+      "isChecked": false,
       "authorId": 1,
       "id": 3
+    },
+    {
+      "todo": "Un sejur foarte fain in centrul vechi",
+      "isChecked": true,
+      "authorId": 1,
+      "id": 4
     }
   ],
   "authors": [
     {
-     "name": "D4phy",
-     "isChecked" : false,
+      "name": "D4phy",
+      "isChecked": false,
       "id": 1
     },
     {
-      "name": "Postal",
-      "isChecked" : true,
+      "name": "Nicu",
+      "isChecked": false,
       "id": 2
+    },
+    {
+      "name": "Mami",
+      "isChecked": false,
+      "id": 3
     }
   ]
 }
